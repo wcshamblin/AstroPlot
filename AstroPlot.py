@@ -5,6 +5,13 @@ import argparse
 import numpy as np
 ps = argparse.ArgumentParser(description='Parses and plots data from JPL\'s HORIZONS system')
 ps.add_argument("path", type=str, nargs="+", help='Path to csv to be plotted')
+
+# path to folder option
+# mirror x/y option
+# date range / animate
+# stats page thing
+# titles?
+
 args=ps.parse_args()
 
 cent={'X':0,'Y':0,'Z':0}
@@ -19,7 +26,7 @@ try:
 		orbit.rename(columns=lambda i: i.strip(), inplace=True)
 		orbit.dropna(inplace=True)
 		orbit['TotalSpeed'] = (abs(orbit.VX)+abs(orbit.VY)+abs(orbit.VZ))
-		orbit=px.scatter_3d(orbit, 'X', 'Y', 'Z', color='TotalSpeed')
+		orbit=px.scatter_3d(orbit, 'X', 'Y', 'Z', color='TotalSpeed', color_continuous_scale='bluered')
 		fig.add_trace(orbit.data[0])
 except FileNotFoundError as error:
 	print("Error: "+csv+" could not be read as a csv")
