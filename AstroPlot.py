@@ -13,6 +13,9 @@ ps.add_argument("-s", "--speed", action="store_true", help="Graph speed with mar
 # stats page thing
 # titles?
 
+cmin=0
+cmax=0
+
 args=ps.parse_args()
 if args.fix:
 	layout = go.Layout(scene=dict(aspectmode='data'))
@@ -33,7 +36,12 @@ try:
 		orbit.dropna(inplace=True)
 		if args.speed:
 			orbit['TotalSpeed'] = (abs(orbit.VX)+abs(orbit.VY)+abs(orbit.VZ))
-			print(orbit['TotalSpeed'])
+			il=[min(orbit['TotalSpeed']), max(orbit['TotalSpeed'])]
+			if il[0]>cmin:
+				cmin=il[0]
+			if il[1]>cmax:
+				cmax=il[1]
+
 			fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1, color=orbit['TotalSpeed'], colorscale='bluered'), name=csv))
 		else:
 
@@ -42,5 +50,7 @@ try:
 except FileNotFoundError as error:
 	print("Error: "+csv+" could not be read as a csv")
 	exit()
+if args.speed:
+	fig.update_traces(marker=dict(cmin=cmin, cmax=cmax))
 fig.update_traces(marker=dict(size=1))
 fig.show()
