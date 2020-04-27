@@ -3,6 +3,7 @@ AstroPlot plots the result of JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?
 
 ## Collecting ephemeris:
 Ensure that Vectors are selected
+
 Table output should be in CSV format with Corrections at None
 
 ## Running:
