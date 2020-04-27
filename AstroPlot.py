@@ -17,6 +17,8 @@ ps.add_argument("-b", "--black", action="store_true", help="Use a black backgrou
 cmin=0
 cmax=0
 lcol="black"
+startn=0
+
 args=ps.parse_args()
 
 fig=go.Figure()
@@ -53,37 +55,53 @@ fig.add_trace(go.Scatter3d(x=cent['X'], y=cent['Y'], z=cent['Z'], mode='markers'
 
 ranges=[]
 
-try:
-	for csv in args.path:
-		orbit=pd.read_csv(csv)
-		orbit=orbit.loc[:, ~orbit.columns.str.contains('^Unnamed')]
-		orbit.rename(columns=lambda i: i.strip(), inplace=True)
-		orbit.dropna(inplace=True)
+for csv in args.path:
+	inf=[]
+	title=csv
+	try:
+		orbit=open(csv, "r")
+	except IOError as error:
+		print("Error: "+csv+" could not be read as a csv")
+		exit()
 
-		# orbit['Calendar Date (TDB)']=orbit['Calendar Date (TDB)'].str.replace('A.D. ', '')
-		# orbit['Calendar Date (TDB)']=pd.to_datetime(orbit['Calendar Date (TDB)'])
-		# print(orbit['Calendar Date (TDB)'])
-		# test=orbit['Calendar Date (TDB)']
+	for i in range(0,22):
+		line=orbit.readline()
+		inf.append(line)
+		if "$$SOE" in line:
+			orbit.seek(i-2)
+			startn=i-2
+			break
+	
+	orbit=pd.read_csv(orbit,skiprows=startn)
+	orbit=orbit.loc[:, ~orbit.columns.str.contains('^Unnamed')]
+	orbit.rename(columns=lambda i: i.strip(), inplace=True)
+	orbit.dropna(inplace=True)
 
-		if args.speed:
-			try:
-				orbit['TotalSpeed'] = (abs(orbit['VX'])+abs(orbit['VY'])+abs(orbit['VZ']))
-				il=[min(orbit['TotalSpeed']), max(orbit['TotalSpeed'])]
-				if il[0]>cmin:
-					cmin=il[0]
-				if il[1]>cmax:
-					cmax=il[1]
-				fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1, color=orbit['TotalSpeed'], colorscale='bluered'), name=csv))
-			except KeyError as error:
-				warnings.warn("Velocity components not available for "+csv+", unable to display speed.")
-				fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1), name=csv))
-			
+	for line in inf:
+		if "Target body name:" in line:
+			title=line.split("Target body name:")[1].split("{source:")[0]
+
+	# orbit['Calendar Date (TDB)']=orbit['Calendar Date (TDB)'].str.replace('A.D. ', '')
+	# orbit['Calendar Date (TDB)']=pd.to_datetime(orbit['Calendar Date (TDB)'])
+	# print(orbit['Calendar Date (TDB)'])
+	# test=orbit['Calendar Date (TDB)']
+
+	if args.speed:
+		try:
+			orbit['TotalSpeed'] = (abs(orbit['VX'])+abs(orbit['VY'])+abs(orbit['VZ']))
+		except KeyError as error:
+			warnings.warn("Velocity components not available for "+csv+", unable to display speed.")
+			fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1), name=title))
 		else:
-			fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1), name=csv))
-
-except FileNotFoundError as error:
-	print("Error: "+csv+" could not be read as a csv")
-	exit()
+			il=[min(orbit['TotalSpeed']), max(orbit['TotalSpeed'])]
+			if il[0]>cmin:
+				cmin=il[0]
+			if il[1]>cmax:
+				cmax=il[1]
+			fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1, color=orbit['TotalSpeed'], colorscale='bluered'), name=title))
+		
+	else:
+		fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1), name=csv))
 if args.speed:
 	fig.update_traces(marker=dict(cmin=cmin, cmax=cmax))
 fig.show()
