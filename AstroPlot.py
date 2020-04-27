@@ -58,6 +58,8 @@ ranges=[]
 for csv in args.path:
 	inf=[]
 	title=csv
+	center=[0,0,0]
+	units=""
 	try:
 		orbit=open(csv, "r")
 	except IOError as error:
@@ -79,7 +81,11 @@ for csv in args.path:
 
 	for line in inf:
 		if "Target body name:" in line:
-			title=line.split("Target body name:")[1].split("{source:")[0]
+			title=(line.split("Target body name:")[1].split("{")[0]).strip()
+		if "Center geodetic :" in line:
+			center=[float(i) for i in ((line.split("Center geodetic :")[1].split("{")[0]).strip()).split(",")]
+		if "Output units    :" in line:
+			units=(line.split("Output units    :")[1].split("{")[0]).strip()
 
 	# orbit['Calendar Date (TDB)']=orbit['Calendar Date (TDB)'].str.replace('A.D. ', '')
 	# orbit['Calendar Date (TDB)']=pd.to_datetime(orbit['Calendar Date (TDB)'])
