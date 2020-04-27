@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import argparse
 import numpy as np
+import warnings
 ps = argparse.ArgumentParser(description='Parses and plots data from JPL\'s HORIZONS system')
 ps.add_argument("path", type=str, nargs="+", help='Path to csv or folder of csv\'s to be plotted')
 ps.add_argument("-f", "--fix", action="store_true", help="Fix aspect ratio/scale of graph")
@@ -65,16 +66,19 @@ try:
 		# test=orbit['Calendar Date (TDB)']
 
 		if args.speed:
-			orbit['TotalSpeed'] = (abs(orbit.VX)+abs(orbit.VY)+abs(orbit.VZ))
-			il=[min(orbit['TotalSpeed']), max(orbit['TotalSpeed'])]
-			if il[0]>cmin:
-				cmin=il[0]
-			if il[1]>cmax:
-				cmax=il[1]
-
-			fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1, color=orbit['TotalSpeed'], colorscale='bluered'), name=csv))
+			try:
+				orbit['TotalSpeed'] = (abs(orbit['VX'])+abs(orbit['VY'])+abs(orbit['VZ']))
+				il=[min(orbit['TotalSpeed']), max(orbit['TotalSpeed'])]
+				if il[0]>cmin:
+					cmin=il[0]
+				if il[1]>cmax:
+					cmax=il[1]
+				fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1, color=orbit['TotalSpeed'], colorscale='bluered'), name=csv))
+			except KeyError as error:
+				warnings.warn("Velocity components not available for "+csv+", unable to display speed.")
+				fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1), name=csv))
+			
 		else:
-
 			fig.add_trace(go.Scatter3d(x=orbit['X'], y=orbit['Y'], z=orbit['Z'], mode='markers', marker=dict(size=1), name=csv))
 
 except FileNotFoundError as error:
