@@ -2,7 +2,7 @@
 AstroPlot plots the result of JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?horizons)
 
 ## Collecting ephemeris:
-Ensure that Vectors are selected
+Ensure that Vectors mode is selected
 
 Table output should be in CSV format with Corrections at None
 
@@ -19,4 +19,3 @@ Keep in mind all CSV's must have the same properties (center, units, etc...) to 
 ## Planned features
 * Automatic on-the-fly unit conversion
 * Close encounters
-* 
