@@ -19,3 +19,4 @@ Keep in mind all CSV's must have the same properties (center, units, etc...) to 
 ## Planned features
 * Automatic on-the-fly unit conversion
 * Close encounters
+* Automatic querying of the HORIZONS system (No planned date, as the system will soon undergo changes with the API, rendering any current code unapplicable)
