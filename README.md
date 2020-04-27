@@ -6,6 +6,8 @@ Ensure that Vectors are selected
 
 Table output should be in CSV format with Corrections at None
 
+Tables should start with the line of columns (X, Y, Z), and end with $$EOE
+
 ## Running:
 ```bash
 chmod 755 ./AstroPlot.py
@@ -17,3 +19,4 @@ Keep in mind all CSV's must have the same properties (center, units, etc...) to 
 ## Planned features
 * Automatic on-the-fly unit conversion
 * Close encounters
+* 
