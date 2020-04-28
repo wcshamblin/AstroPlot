@@ -11,7 +11,7 @@ AstroPlot plots the result of JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?
 ## Running:
 ```bash
 chmod 755 ./AstroPlot.py
-./AstroPlot.py /path/to/csv
+./AstroPlot.py /path/to/csv(s)
 ```
 
 ## Planned features
