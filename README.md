@@ -2,11 +2,11 @@
 AstroPlot plots the result of JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?horizons)
 
 ## Collecting ephemeris:
-Ensure that Vectors mode is selected
+* Ensure that Vectors mode is selected
 
-Table output should be in CSV format with Corrections at None
+* Table output should be in CSV format with Corrections at None
 
-Tables should end with the $$EOE declaration
+* Tables should end with the $$EOE declaration
 
 ## Running:
 ```bash
