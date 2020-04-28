@@ -9,7 +9,7 @@ ps.add_argument("path", type=str, nargs="+", help='Path to csv or folder of csv\
 ps.add_argument("-f", "--fix", action="store_true", help="Fix aspect ratio/scale of graph")
 ps.add_argument("-s", "--speed", action="store_true", help="Graph speed with marker color")
 ps.add_argument("-b", "--black", action="store_true", help="Use a black background color")
-ps.add_argument("-c", "--convert", type=str, help="Convert units")
+ps.add_argument("-c", "--convert", type=str, help="Convert CSV position/speed units into this unit (KM-S, KM-D, AU-D)")
 
 cmin=0
 cmax=0
