@@ -107,11 +107,11 @@ for csv in args.path:
 						orbit['Z']=orbit['Z']/149597870.7
 				if args.speed:
 					if set(['VX', 'VY', 'VZ']).issubset(orbit.columns):
-						if args.convert[:2]=="km":
+						if args.convert[:2]=="km": # au -> km
 							orbit['VX']=orbit['VX']*149597870.7
 							orbit['VY']=orbit['VY']*149597870.7
 							orbit['VZ']=orbit['VZ']*149597870.7
-						else:
+						else:                      # km -> au
 							orbit['VX']=orbit['VX']/149597870.7
 							orbit['VY']=orbit['VY']/149597870.7
 							orbit['VZ']=orbit['VZ']/149597870.7
