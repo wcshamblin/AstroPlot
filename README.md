@@ -6,22 +6,7 @@ Ensure that Vectors mode is selected
 
 Table output should be in CSV format with Corrections at None
 
-Tables should start with the line after login information, and end with $$EOE
-```
- Automated mail xmit by PORT_LOGIN, PID= 16019 Tue Apr 28 08:04:43 2020
-++++++++++++++++++++++++++++++++ (part 1 of 1)  +++++++++++++++++++++++++++++++
-*******************************************************************************
-Ephemeris / PORT_LOGIN Tue Apr 28 08:04:37 2020 Pasadena, USA    / Horizons   
-******************************************************************************* <-- FILE STARTS HERE
-Target body name: Mercury (199)                   {source: DE431mx}
-Center body name: Sun (10)                        {source: DE431mx}
-Center-site name: BODY CENTER
-*******************************************************************************
-Start time      : A.D. 2010-Jan-01 00:00:00.0000 TDB
-Stop  time      : A.D. 2020-Jan-01 00:00:00.0000 TDB
-Step-size       : 1440 minutes
-*******************************************************************************
-```
+Tables should end with the $$EOE declaration
 
 ## Running:
 ```bash
