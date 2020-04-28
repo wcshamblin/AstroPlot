@@ -108,13 +108,13 @@ for csv in args.path:
 				if args.speed:
 					if set(['VX', 'VY', 'VZ']).issubset(orbit.columns):
 						if args.convert[:2]=="km":
-							orbit['VX']=orbit['VX']/149597870.7
-							orbit['VY']=orbit['VY']/149597870.7
-							orbit['VZ']=orbit['VZ']/149597870.7
-						else:
 							orbit['VX']=orbit['VX']*149597870.7
 							orbit['VY']=orbit['VY']*149597870.7
 							orbit['VZ']=orbit['VZ']*149597870.7
+						else:
+							orbit['VX']=orbit['VX']/149597870.7
+							orbit['VY']=orbit['VY']/149597870.7
+							orbit['VZ']=orbit['VZ']/149597870.7
 						if args.convert[3]=="s":
 							orbit['VX']=orbit['VX']*86400
 							orbit['VY']=orbit['VY']*86400
@@ -130,7 +130,7 @@ for csv in args.path:
 	# orbit['Calendar Date (TDB)']=pd.to_datetime(orbit['Calendar Date (TDB)'])
 	# print(orbit['Calendar Date (TDB)'])
 	# test=orbit['Calendar Date (TDB)']
-
+	print(orbit)
 	if args.speed:
 		try:
 			orbit['TotalSpeed'] = (abs(orbit['VX'])+abs(orbit['VY'])+abs(orbit['VZ']))
