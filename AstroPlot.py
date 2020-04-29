@@ -11,6 +11,7 @@ ps.add_argument("-s", "--speed", action="store_true", help="Graph speed with mar
 ps.add_argument("-b", "--black", action="store_true", help="Use a black background color")
 ps.add_argument("-c", "--convert", type=str, help="Convert CSV position/speed units into this unit (KM-S, KM-D, AU-D)")
 
+
 cmin=0
 cmax=0
 lcol="black"
@@ -116,13 +117,13 @@ for csv in args.path:
 							orbit['VY']=orbit['VY']/149597870.7
 							orbit['VZ']=orbit['VZ']/149597870.7
 						if args.convert[3]=="s":
-							orbit['VX']=orbit['VX']*86400
-							orbit['VY']=orbit['VY']*86400
-							orbit['VZ']=orbit['VZ']*86400
-						else:
 							orbit['VX']=orbit['VX']/86400
 							orbit['VY']=orbit['VY']/86400
 							orbit['VZ']=orbit['VZ']/86400
+						else:
+							orbit['VX']=orbit['VX']*86400
+							orbit['VY']=orbit['VY']*86400
+							orbit['VZ']=orbit['VZ']*86400
 					else:
 						warnings.warn("Velocity component not present in "+csv+", not able to convert")
 
@@ -130,7 +131,7 @@ for csv in args.path:
 	# orbit['Calendar Date (TDB)']=pd.to_datetime(orbit['Calendar Date (TDB)'])
 	# print(orbit['Calendar Date (TDB)'])
 	# test=orbit['Calendar Date (TDB)']
-	print(orbit)
+
 	if args.speed:
 		try:
 			orbit['TotalSpeed'] = (abs(orbit['VX'])+abs(orbit['VY'])+abs(orbit['VZ']))
