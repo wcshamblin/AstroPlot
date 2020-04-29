@@ -8,7 +8,7 @@ ps = argparse.ArgumentParser(description='Parses and plots data from JPL\'s HORI
 ps.add_argument("path", type=str, nargs="+", help='Path to csv or folder of csv\'s to be plotted')
 ps.add_argument("-r", "--relative", action="store_true", help="Use non-symmetrical graph axis, scaled to data")
 ps.add_argument("-s", "--speed", action="store_true", help="Graph speed with marker color")
-ps.add_argument("-b", "--black", action="store_true", help="Use a black background color")
+ps.add_argument("-w", "--white", action="store_true", help="Use a white background color")
 ps.add_argument("-c", "--convert", type=str, help="Convert CSV position/speed units into this unit (KM-S, KM-D, AU-D)")
 
 
@@ -31,7 +31,7 @@ if args.convert is not None:
 if not args.relative:
 	fig.update_layout(scene=dict(aspectmode='data'))
 
-if args.black:
+if args.white:
 	lcol="white"
 	fig.update_layout(scene = dict(
 	                    xaxis = dict(
