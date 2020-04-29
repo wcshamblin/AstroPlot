@@ -49,6 +49,24 @@ if args.black:
 	                        showbackground=True,
 	                        zerolinecolor="gray",),),
 	                    paper_bgcolor="black")
+else:
+	fig.update_layout(scene = dict(
+	                    xaxis = dict(
+	                         backgroundcolor="white",
+	                         gridcolor="gray",
+	                         showbackground=True,
+	                         zerolinecolor="gray",),
+	                    yaxis = dict(
+	                        backgroundcolor="white",
+	                        gridcolor="gray",
+	                        showbackground=True,
+	                        zerolinecolor="gray"),
+	                    zaxis = dict(
+	                        backgroundcolor="white",
+	                        gridcolor="gray",
+	                        showbackground=True,
+	                        zerolinecolor="gray",),),
+	                    paper_bgcolor="white")
 fig.update_layout(legend=dict(font=dict(color=lcol),x=0, y=1),margin=dict(r=0,l=0,b=0,t=0))
 
 cent={'X':0,'Y':0,'Z':0}
