@@ -31,7 +31,7 @@ if args.convert is not None:
 if not args.relative:
 	fig.update_layout(scene=dict(aspectmode='data'))
 
-if args.white:
+if not args.white:
 	lcol="white"
 	fig.update_layout(scene = dict(
 	                    xaxis = dict(
@@ -87,19 +87,17 @@ for csv in args.path:
 		print("Error: "+csv+" could not be read as a csv")
 		exit()
 
-	for i in range(0,22):
+	for i in range(0,40):
 		line=orbit.readline()
 		inf.append(line)
 		if "$$SOE" in line:
-			orbit.seek(i-2)
 			startn=i-2
 			break
-	
+	orbit.seek(0)
 	orbit=pd.read_csv(orbit,skiprows=startn)
 	orbit=orbit.loc[:, ~orbit.columns.str.contains('^Unnamed')]
 	orbit.rename(columns=lambda i: i.strip(), inplace=True)
 	orbit.dropna(inplace=True)
-
 
 	for line in inf:
 		if "Target body name:" in line:
