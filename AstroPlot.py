@@ -72,7 +72,7 @@ fig.update_layout(legend=dict(font=dict(color=lcol),x=0, y=1),margin=dict(r=0,l=
 
 cent={'X':0,'Y':0,'Z':0}
 cent=pd.DataFrame(np.array([[0,0,0]]),columns=['X', 'Y', 'Z'])
-fig.add_trace(go.Scatter3d(x=cent['X'], y=cent['Y'], z=cent['Z'], mode='markers', marker=dict(size=5, color='orange')))
+fig.add_trace(go.Scatter3d(x=cent['X'], y=cent['Y'], z=cent['Z'], mode='markers', marker=dict(size=5, color='orange'), name="Center"))
 
 ranges=[]
 
