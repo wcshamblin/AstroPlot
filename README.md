@@ -2,9 +2,9 @@
 AstroPlot plots the result of JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?horizons)
 
 ## Example Output
-![Epheremeris based color](./screenshots/color.png)
-
 ![Speed based color](./screenshots/speed.png)
+
+![Epheremeris based color](./screenshots/color.png)
 
 ## Collecting ephemeris:
 * Ensure that Vectors mode is selected
