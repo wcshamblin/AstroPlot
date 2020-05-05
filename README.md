@@ -6,7 +6,7 @@ AstroPlot plots the result of JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?
 
 * Table output should be in CSV format with Corrections at None
 
-* Tables should end with the $$EOE declaration
+* Tables should end with the $$EOE declaration, and start at the port login information
 
 ## Running:
 ```bash
