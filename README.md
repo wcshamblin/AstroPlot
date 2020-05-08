@@ -1,5 +1,5 @@
 # AstroPlot.py
-AstroPlot plots the result of JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?horizons)
+AstroPlot plots ephermeris from JPL's [HORIZONS System](https://ssd.jpl.nasa.gov/?horizons)
 
 ## Collecting ephemeris:
 * Ensure that Vectors mode is selected
