@@ -10,15 +10,7 @@ ps.add_argument("-r", "--relative", action="store_true", help="Use non-symmetric
 ps.add_argument("-s", "--speed", action="store_true", help="Graph speed with marker color")
 ps.add_argument("-w", "--white", action="store_true", help="Use a white background color")
 ps.add_argument("-c", "--convert", type=str, help="Convert CSV position/speed units into this unit (KM-S, KM-D, AU-D)")
-
-
-cmin=0
-cmax=0
-lcol="black"
-startn=0
-
 args=ps.parse_args()
-
 fig=go.Figure()
 
 fig.update_traces(marker=dict(size=1))
@@ -31,6 +23,7 @@ if args.convert is not None:
 if not args.relative:
 	fig.update_layout(scene=dict(aspectmode='data'))
 
+lcol="black"
 if not args.white:
 	lcol="white"
 	fig.update_layout(scene = dict(
@@ -74,20 +67,19 @@ cent={'X':0,'Y':0,'Z':0}
 cent=pd.DataFrame(np.array([[0,0,0]]),columns=['X', 'Y', 'Z'])
 fig.add_trace(go.Scatter3d(x=cent['X'], y=cent['Y'], z=cent['Z'], mode='markers', marker=dict(size=5, color='orange'), name="Center"))
 
-ranges=[]
-
 for csv in args.path:
 	inf=[]
 	title=csv
 	center=[0,0,0]
 	units=""
+	startn=0
 	try:
 		orbit=open(csv, "r")
 	except IOError as error:
 		print("Error: "+csv+" could not be read as a csv")
 		exit()
 
-	for i in range(0,40):
+	for i in range(0,50):
 		line=orbit.readline()
 		inf.append(line)
 		if "$$SOE" in line:
@@ -150,6 +142,7 @@ for csv in args.path:
 	# test=orbit['Calendar Date (TDB)']
 
 	if args.speed:
+		cmin=cmax=0
 		try:
 			orbit['TotalSpeed'] = (abs(orbit['VX'])+abs(orbit['VY'])+abs(orbit['VZ']))
 		except KeyError as error:
