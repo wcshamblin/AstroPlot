@@ -10,7 +10,6 @@ AstroPlot plots ephermeris from JPL's [HORIZONS System](https://ssd.jpl.nasa.gov
 
 ## Running:
 ```bash
-chmod 755 ./AstroPlot.py
 ./AstroPlot.py /path/to/csv(s)
 ```
 ## Example Output
